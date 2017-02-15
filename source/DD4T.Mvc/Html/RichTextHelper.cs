@@ -37,8 +37,7 @@ namespace DD4T.Mvc.Html
 
             nsmgr.AddNamespace("xhtml", XhtmlNamespaceUri);
             nsmgr.AddNamespace("xlink", XlinkNamespaceUri);
-            var encodeValue = HttpUtility.HtmlEncode(value);
-            doc.LoadXml(string.Format("<xhtmlroot>{0}</xhtmlroot>", encodeValue));
+            doc.LoadXml(string.Format("<xhtmlroot>{0}</xhtmlroot>", value));
             // resolve links which haven't been resolved
             foreach (XmlNode link in doc.SelectNodes("//xhtml:a[@xlink:href[starts-with(string(.),'tcm:')]][@xhtml:href='' or not(@xhtml:href)]", nsmgr))
             {
@@ -109,7 +108,7 @@ namespace DD4T.Mvc.Html
                 anchor.InnerText = anchor.Attributes["id"] != null ? anchor.Attributes["id"].Value : "empty";
             }
 
-            return new MvcHtmlString(HttpUtility.HtmlDecode(RemoveNamespaceReferences(doc.DocumentElement.InnerXml)));
+            return new MvcHtmlString(RemoveNamespaceReferences(doc.DocumentElement.InnerXml));
         }
 
         /// <summary>
